@@ -16,12 +16,12 @@ window.onload = function() {
     
     // Level object
     var level = {
-        x: 90,         // X position
+        x: 40,         // X position
         y: 150,         // Y position
         columns: 8,     // Number of tile columns
         rows: 8,        // Number of tile rows
-        tilewidth: 40,  // Visual width of a tile
-        tileheight: 40, // Visual height of a tile
+        tilewidth: 60,  // Visual width of a tile
+        tileheight: 60, // Visual height of a tile
         tiles: [],      // The two-dimensional tile array
         selectedtile: { selected: false, column: 0, row: 0 }
     };
@@ -72,14 +72,14 @@ window.onload = function() {
     var gameover = false;
     
     // Gui buttons
-    var buttons = [ { x: 150, y: 500, width: 200, height: 50, text: "New Game"}];
+    var buttons = [ { x: 150, y: 650, width: 200, height: 50, text: "New Game"}];
 
     // Timer
     var maxtime = 60;
     var timeleft = maxtime;
     var timerx = 0;
     var timery = 0;
-    var timerwidth = 480;
+    var timerwidth = 580;
     var timerheight = 20;
     
     // Initialize the game
