@@ -75,7 +75,7 @@ window.onload = function() {
     var buttons = [ { x: 150, y: 500, width: 200, height: 50, text: "New Game"}];
 
     // Timer
-    var maxtime = 10;
+    var maxtime = 60;
     var timeleft = maxtime;
     var timerx = 0;
     var timery = 0;
@@ -89,6 +89,9 @@ window.onload = function() {
         canvas.addEventListener("mousedown", onMouseDown);
         canvas.addEventListener("mouseup", onMouseUp);
         canvas.addEventListener("mouseout", onMouseOut);
+        canvas.addEventListener("touchstart", onTouchDown);
+        canvas.addEventListener("touchend", onTouchUp);
+        canvas.addEventListener("touchmove", onTouchMove);
         
         // Initialize the two-dimensional tile array
         for (var i=0; i<level.columns; i++) {
@@ -121,9 +124,6 @@ window.onload = function() {
         var dt = (tframe - lastframe) / 1000;
         lastframe = tframe;
         timeleft -= dt;
-
-        // Update the fps counter
-        updateFps(dt);
         
         if (gamestate == gamestates.ready) {
             // Game is ready for player input
@@ -219,21 +219,6 @@ window.onload = function() {
             findMoves();
             findClusters();
         }
-    }
-    
-    function updateFps(dt) {
-        if (fpstime > 0.25) {
-            // Calculate fps
-            fps = Math.round(framecount / fpstime);
-            
-            // Reset time and framecount
-            fpstime = 0;
-            framecount = 0;
-        }
-        
-        // Increase time and framecount
-        fpstime += dt;
-        framecount++;
     }
     
     // Draw text that is centered
@@ -840,29 +825,28 @@ window.onload = function() {
                 if (i == 0) {
                     // New Game
                     newGame();
-                } else if (i == 1) {
-                    // Show Moves
-                    showmoves = !showmoves;
-                    buttons[i].text = (showmoves?"Hide":"Show") + " Moves";
-                } else if (i == 2) {
-                    // AI Bot
-                    aibot = !aibot;
-                    buttons[i].text = (aibot?"Disable":"Enable") + " AI Bot";
-                }
+                } 
             }
         }
     }
     
     function onMouseUp(e) {
-        // Reset dragging
         drag = false;
     }
-    
     function onMouseOut(e) {
-        // Reset dragging
         drag = false;
     }
-    
+
+    function onTouchDown(e){
+        onMouseDown(e.touches[0]);
+    }
+    function onTouchUp(e){
+        onMouseUp(e);
+    }
+    function onTouchMove(e){
+        onMouseMove(e.touches[0]);
+    }
+
     // Get the mouse position
     function getMousePos(canvas, e) {
         var rect = canvas.getBoundingClientRect();
@@ -871,6 +855,8 @@ window.onload = function() {
             y: Math.round((e.clientY - rect.top)/(rect.bottom - rect.top)*canvas.height)
         };
     }
+
+    
     
     // Call init to start the game
     init();
