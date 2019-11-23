@@ -1,4 +1,16 @@
 var grey = "#606060";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAgvhlKNCHbxs07c7tIMmCAEVFkg3H5fwo",
+    authDomain: "hass-firebase-demo.firebaseapp.com",
+    databaseURL: "https://hass-firebase-demo.firebaseio.com",
+    projectId: "hass-firebase-demo",
+    storageBucket: "hass-firebase-demo.appspot.com",
+    messagingSenderId: "890364234193",
+    appId: "1:890364234193:web:4a8ead9023b6afd36fb8f0",
+    measurementId: "G-PVP7RMHE0Q"
+  };
+
 // The function gets called when the window is fully loaded
 window.onload = function() {
     // Get the canvas and context
@@ -267,6 +279,8 @@ window.onload = function() {
             context.fillStyle = "#ffffff";
             context.font = "24px Verdana";
             drawCenterText("Game Over!", level.x, level.y + levelheight / 2 + 10, levelwidth);
+
+            writeUserData('USER_1', score)
         }
     }
     
@@ -815,6 +829,13 @@ window.onload = function() {
             }
         }
     }
+
+    function writeUserData(userId, scoreNum) {
+        firebase.database().ref('users/' + userId).set({
+          username: name,
+          score: scoreNum
+        });
+      }
     
     function onMouseUp(e) {
         drag = false;
