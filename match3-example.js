@@ -1,16 +1,5 @@
 var grey = "#606060";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAgvhlKNCHbxs07c7tIMmCAEVFkg3H5fwo",
-    authDomain: "hass-firebase-demo.firebaseapp.com",
-    databaseURL: "https://hass-firebase-demo.firebaseio.com",
-    projectId: "hass-firebase-demo",
-    storageBucket: "hass-firebase-demo.appspot.com",
-    messagingSenderId: "890364234193",
-    appId: "1:890364234193:web:4a8ead9023b6afd36fb8f0",
-    measurementId: "G-PVP7RMHE0Q"
-  };
-
 // The function gets called when the window is fully loaded
 window.onload = function() {
     // Get the canvas and context
@@ -78,11 +67,11 @@ window.onload = function() {
     var buttons = [ { x: 150, y: 650, width: 200, height: 50, text: "New Game"}];
 
     // Timer
-    var maxtime = 60;
+    var maxtime = 30;
     var timeleft = maxtime;
     var timerx = 0;
     var timery = 0;
-    var timerwidth = 580;
+    var timerwidth = 480;
     var timerheight = 20;
     
     // Initialize the game
@@ -832,7 +821,6 @@ window.onload = function() {
 
     function writeUserData(userId, scoreNum) {
         firebase.database().ref('users/' + userId).set({
-          username: name,
           score: scoreNum
         });
       }
