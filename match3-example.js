@@ -20,20 +20,11 @@ window.onload = function() {
         y: 150,         // Y position
         columns: 8,     // Number of tile columns
         rows: 8,        // Number of tile rows
-        tilewidth: 60,  // Visual width of a tile
-        tileheight: 60, // Visual height of a tile
+        tilewidth: 50,  // Visual width of a tile
+        tileheight: 50, // Visual height of a tile
         tiles: [],      // The two-dimensional tile array
         selectedtile: { selected: false, column: 0, row: 0 }
     };
-    
-    // All of the different tile colors in RGB
-    var tilecolors = [[255, 128, 128],
-                      [128, 255, 128],
-                      [128, 128, 255],
-                      [255, 255, 128],
-                      [255, 128, 255],
-                      [128, 255, 255],
-                      [255, 255, 255]];
 
     var circle = new Image(); circle.src = "img/circle.png";
     var diamond = new Image(); diamond.src = "img/diamond.png";
@@ -330,9 +321,6 @@ window.onload = function() {
                 
                 // Check if there is a tile present
                 if (level.tiles[i][j].type >= 0) {
-                    // Get the color of the tile
-                    //var col = tilecolors[level.tiles[i][j].type];
-
                     // Get image of tile
                     var image = tileimages[level.tiles[i][j].type];
                     
@@ -362,13 +350,11 @@ window.onload = function() {
             // First tile
             var coord1 = getTileCoordinate(currentmove.column1, currentmove.row1, 0, 0);
             var coord1shift = getTileCoordinate(currentmove.column1, currentmove.row1, (animationtime / animationtimetotal) * shiftx, (animationtime / animationtimetotal) * shifty);
-            var col1 = tilecolors[level.tiles[currentmove.column1][currentmove.row1].type];
             var img1 = tileimages[level.tiles[currentmove.column1][currentmove.row1].type];
             
             // Second tile
             var coord2 = getTileCoordinate(currentmove.column2, currentmove.row2, 0, 0);
             var coord2shift = getTileCoordinate(currentmove.column2, currentmove.row2, (animationtime / animationtimetotal) * -shiftx, (animationtime / animationtimetotal) * -shifty);
-            var col2 = tilecolors[level.tiles[currentmove.column2][currentmove.row2].type];
             var img2 = tileimages[level.tiles[currentmove.column2][currentmove.row2].type];
             
             // Draw a black background

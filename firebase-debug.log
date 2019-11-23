@@ -1,0 +1,47 @@
+[debug] [2019-11-20T13:25:46.178Z] ----------------------------------------------------------------------
+[debug] [2019-11-20T13:25:46.180Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Paul\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-11-20T13:25:46.180Z] CLI Version:   7.8.0
+[debug] [2019-11-20T13:25:46.180Z] Platform:      win32
+[debug] [2019-11-20T13:25:46.180Z] Node Version:  v10.13.0
+[debug] [2019-11-20T13:25:46.182Z] Time:          Wed Nov 20 2019 21:25:46 GMT+0800 (Singapore Standard Time)
+[debug] [2019-11-20T13:25:46.182Z] ----------------------------------------------------------------------
+[debug] [2019-11-20T13:25:46.182Z] 
+[debug] [2019-11-20T13:25:46.190Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-20T13:25:46.191Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Paul\Desktop\HASS\HassGameSurvey2019.github.io
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+[debug] [2019-11-20T13:28:02.829Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-20T13:28:02.829Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-20T13:28:02.923Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-20T13:28:02.939Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+
+[debug] [2019-11-20T13:28:04.632Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-20T13:28:04.636Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.6316580663749464657  
+ 
+[debug] [2019-11-20T13:28:06.062Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-20T13:28:06.065Z] Callers must accept Terms of Service
+[debug] [2019-11-20T13:28:06.112Z] FirebaseError: Callers must accept Terms of Service
+    at OperationPoller.<anonymous> (C:\Users\Paul\AppData\Roaming\npm\node_modules\firebase-tools\lib\operation-poller.js:31:23)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\Paul\AppData\Roaming\npm\node_modules\firebase-tools\lib\operation-poller.js:4:58)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: Failed to create Google Cloud project. See firebase-debug.log for more info.
