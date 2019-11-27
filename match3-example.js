@@ -5,12 +5,13 @@ window.onload = function() {
     // Get the canvas and context
     var canvas = document.getElementById("viewport");
     var context = canvas.getContext("2d");
+    var canvasWidth = 480;
+
+    // var game_data = document.getElementById("game_data");
+    // game_data.setAttribute("value", "11");
     
     // Timing and frames per second
     var lastframe = 0;
-    var fpstime = 0;
-    var framecount = 0;
-    var fps = 0;
     
     // Mouse dragging
     var drag = false;
@@ -54,28 +55,53 @@ window.onload = function() {
     var animationtime = 0;
     var animationtimetotal = 0.2;
     
-    // Show available moves
-    var showmoves = false;
-    
-    // The AI bot
-    var aibot = false;
-    
     // Game Over
     var gameover = false;
     
     // Gui buttons
-    var buttons = [ { x: 150, y: 650, width: 200, height: 50, text: "New Game"}];
+    var buttons = [ { x: 150, y: 450, width: 200, height: 50, text: "New Game"}];
+
+    //Menu States
+    var menuStates = {consent: 0, instructions: 1, play: 2, leaderboard: 3, survey: 4};
+    var repeated_play = false;
 
     // Timer
     var maxtime = 30;
     var timeleft = maxtime;
     var timerx = 0;
     var timery = 0;
-    var timerwidth = 480;
+    var timerwidth = canvasWidth;
     var timerheight = 20;
+
+    function playBtnPress(e){
+        var pos = getMousePos(canvas, e);
+            if (pos.x >= nextBtn.x && pos.x < nextBtn.x+nextBtn.width &&
+                pos.y >= nextBtn.y && pos.y < nextBtn.y+nextBtn.height) {
+                    init();
+                    canvas.removeEventListener("mousedown", playBtnPress);
+            }
+    }
+
+    function play_menu(){
+        drawFrame();
+        nextBtn = { x: 150, y: 450, width: 200, height: 50, text: "PLAY"};
+        buttons = [nextBtn];
+        canvas.addEventListener("mousedown", playBtnPress);
+        
+        drawButtons();
+
+        drawCenterText("Main Menu", 0, 50, canvasWidth, "30px Poppins-Medium");
+    }
+
+    function survey_menu(){
+
+    }
+
+
     
     // Initialize the game
     function init() {
+        console.log("INIT");
         // Add mouse events
         canvas.addEventListener("mousemove", onMouseMove);
         canvas.addEventListener("mousedown", onMouseDown);
@@ -113,6 +139,11 @@ window.onload = function() {
     
     // Update the game state
     function update(tframe) {
+
+        if(gameover){
+            return;
+        }
+
         var dt = (tframe - lastframe) / 1000;
         lastframe = tframe;
         timeleft -= dt;
@@ -122,7 +153,13 @@ window.onload = function() {
             
             // Check for game over
             if (moves.length <= 0 || timeleft <= 0) {
+                if(gameover == false && !repeated_play){
+                    console.log(score.toString());
+                    writeUserData(score);
+                    buttons = [ { x: 150, y: 450, width: 200, height: 50, text: "Leaderboard"}];
+                }
                 gameover = true;
+                return;
             }
             
         } else if (gamestate == gamestates.resolve) {
@@ -140,7 +177,7 @@ window.onload = function() {
                         for (var i=0; i<clusters.length; i++) {
                             // Add extra points for longer clusters
                             if(!gameover){
-                                score += 100 * (clusters[i].length - 2);;
+                                score += 10 * (clusters[i].length - 2);
                             }
                         }
                     
@@ -215,7 +252,6 @@ window.onload = function() {
     
     // Draw text that is centered
     function drawCenterText(text, x, y, width, font) {
-        var textdim = context.measureText(text);
         context.textAlign = "center";
         context.font = font;
         context.fillText(text, x + width/2, y);
@@ -232,12 +268,9 @@ window.onload = function() {
         var levelheight = level.rows * level.tileheight;
 
         context.fillStyle = grey;
-        context.font = "24px Verdana";
-        drawCenterText("Total Score:", level.x, level.y - 80, levelwidth, "20px Verdana");
-        drawCenterText(score, level.x, level.y - 20, levelwidth, "50px Verdana");
-        
-        // Draw buttons
-        drawButtons();
+        context.font = "24px Poppins-Medium";
+        drawCenterText("Total Score:", level.x, level.y - 80, levelwidth, "20px Poppins-Medium");
+        drawCenterText(score, level.x, level.y - 20, levelwidth, "50px Poppins-Medium");
         
         // Draw level background
         context.fillStyle = grey;
@@ -245,14 +278,6 @@ window.onload = function() {
         
         // Render tiles
         renderTiles();
-        
-        // Render clusters
-        // renderClusters();
-        
-        // Render moves, when there are no clusters
-        if (showmoves && clusters.length <= 0 && gamestate == gamestates.ready) {
-            //renderMoves();
-        }
 
         // Draw Timer
         context.fillStyle = grey;
@@ -266,10 +291,16 @@ window.onload = function() {
             context.fillRect(level.x, level.y, levelwidth, levelheight);
             
             context.fillStyle = "#ffffff";
-            context.font = "24px Verdana";
+            context.font = "24px Poppins-Medium";
             drawCenterText("Game Over!", level.x, level.y + levelheight / 2 + 10, levelwidth);
-
-            writeUserData('USER_1', score)
+            drawButtons();
+            
+            // TODO Draw Leaderboard over the game
+            //
+            //
+            //
+            //
+            //
         }
     }
     
@@ -280,20 +311,8 @@ window.onload = function() {
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "#e8eaec";
         context.fillRect(1, 1, canvas.width-2, canvas.height-2);
+
         
-        // Draw header
-        //context.fillStyle = "#303030";
-        //context.fillRect(0, 0, canvas.width, 65);
-        
-        // Draw title
-        //context.fillStyle = "#ffffff";
-        //context.font = "24px Verdana";
-        //context.fillText("Match3 Example - Rembound.com", 10, 30);
-        
-        // Display fps
-        //context.fillStyle = "#ffffff";
-        //context.font = "12px Verdana";
-        //context.fillText("Fps: " + fps, 13, 50);
     }
     
     // Draw buttons
@@ -305,10 +324,9 @@ window.onload = function() {
             
             // Draw button text
             context.fillStyle = "#ffffff";
-            context.font = "18px Verdana";
-            var textdim = context.measureText(buttons[i].text);
+            context.font = "18px Poppins-Medium";
             //context.fillText(buttons[i].text, buttons[i].x + (buttons[i].width-textdim.width)/2, buttons[i].y+30);
-            drawCenterText(buttons[i].text, buttons[i].x, buttons[i].y+30, buttons[i].width, "18px Verdana")
+            drawCenterText(buttons[i].text, buttons[i].x, buttons[i].y+30, buttons[i].width, "18px Poppins-Medium")
         }
     }
     
@@ -367,15 +385,11 @@ window.onload = function() {
             // Change the order, depending on the animation state
             if (animationstate == 2) {
                 // Draw the tiles
-                //drawTile(coord1shift.tilex, coord1shift.tiley, col1[0], col1[1], col1[2]);
-                //drawTile(coord2shift.tilex, coord2shift.tiley, col2[0], col2[1], col2[2]);
                 drawTileImg(coord1shift.tilex, coord1shift.tiley, img1);
                 drawTileImg(coord2shift.tilex, coord2shift.tiley, img2);
 
             } else {
                 // Draw the tiles
-                //drawTile(coord2shift.tilex, coord2shift.tiley, col2[0], col2[1], col2[2]);
-                //drawTile(coord1shift.tilex, coord1shift.tiley, col1[0], col1[1], col1[2]);
                 drawTileImg(coord2shift.tilex, coord2shift.tiley, img2);
                 drawTileImg(coord1shift.tilex, coord1shift.tiley, img1);
 
@@ -399,44 +413,10 @@ window.onload = function() {
     function drawTileImg(x, y, image) {
         context.drawImage(image, x + 2, y + 2, level.tilewidth - 4, level.tileheight - 4);
     }
-
-    
-    // Render clusters
-    function renderClusters() {
-        for (var i=0; i<clusters.length; i++) {
-            // Calculate the tile coordinates
-            var coord = getTileCoordinate(clusters[i].column, clusters[i].row, 0, 0);
-            
-            if (clusters[i].horizontal) {
-                // Draw a horizontal line
-                //context.fillStyle = "#00ff00";
-                //context.fillRect(coord.tilex + level.tilewidth/2, coord.tiley + level.tileheight/2 - 4, (clusters[i].length - 1) * level.tilewidth, 8);
-            } else {
-                // Draw a vertical line
-                //context.fillStyle = "#0000ff";
-                //context.fillRect(coord.tilex + level.tilewidth/2 - 4, coord.tiley + level.tileheight/2, 8, (clusters[i].length - 1) * level.tileheight);
-            }
-        }
-    }
-    
-    // Render moves
-    function renderMoves() {
-        for (var i=0; i<moves.length; i++) {
-            // Calculate coordinates of tile 1 and 2
-            var coord1 = getTileCoordinate(moves[i].column1, moves[i].row1, 0, 0);
-            var coord2 = getTileCoordinate(moves[i].column2, moves[i].row2, 0, 0);
-            
-            // Draw a line from tile 1 to tile 2
-            //context.strokeStyle = "#ff0000";
-            //context.beginPath();
-            //context.moveTo(coord1.tilex + level.tilewidth/2, coord1.tiley + level.tileheight/2);
-            //context.lineTo(coord2.tilex + level.tilewidth/2, coord2.tiley + level.tileheight/2);
-            //context.stroke();
-        }
-    }
     
     // Start a new game
     function newGame() {
+        console.log("NEW GAME");
         // Reset score
         score = 0;
         
@@ -452,7 +432,9 @@ window.onload = function() {
         
         // Find initial clusters and moves
         findMoves();
-        findClusters(); 
+        findClusters();
+
+        buttons = [];
     }
     
     // Create a random level
@@ -766,6 +748,7 @@ window.onload = function() {
     
     // On mouse button click
     function onMouseDown(e) {
+        console.log("MOUSEDOWN");
         // Get the mouse position
         var pos = getMousePos(canvas, e);
         
@@ -806,6 +789,7 @@ window.onload = function() {
         }
         
         // Check if a button was clicked
+        console.log(buttons);
         for (var i=0; i<buttons.length; i++) {
             if (pos.x >= buttons[i].x && pos.x < buttons[i].x+buttons[i].width &&
                 pos.y >= buttons[i].y && pos.y < buttons[i].y+buttons[i].height) {
@@ -813,16 +797,25 @@ window.onload = function() {
                 // Button i was clicked
                 if (i == 0) {
                     // New Game
-                    newGame();
+                    if(gamestate == gamestates.init){
+                        newGame();
+                    }
+                    else{
+                        onLeaderboard();
+                    }
                 } 
             }
         }
     }
 
-    function writeUserData(userId, scoreNum) {
-        firebase.database().ref('users/' + userId).set({
-          score: scoreNum
+    function writeUserData(scoreNum) {
+        /*
+        var databaseRef = firebase.database().ref('entries/');
+        var newEntry = databaseRef.push();
+        newEntry.set({
+            score: scoreNum
         });
+        */
       }
     
     function onMouseUp(e) {
@@ -851,8 +844,6 @@ window.onload = function() {
         };
     }
 
-    
-    
     // Call init to start the game
-    init();
+    play_menu();
 };
