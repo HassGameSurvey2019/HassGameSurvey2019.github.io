@@ -129,16 +129,22 @@ window.onload = function() {
     
     // Main loop
     function main(tframe) {
+        if(lastframe == 0){
+            lastframe = tframe;
+        }
         // Request animation frames
         window.requestAnimationFrame(main);
         
         // Update and render the game
+
         update(tframe);
         render();
     }
     
     // Update the game state
     function update(tframe) {
+
+        console.log(tframe);
 
         if(gameover){
             return;
@@ -416,7 +422,9 @@ window.onload = function() {
     
     // Start a new game
     function newGame() {
+        timeleft = maxtime;
         console.log("NEW GAME");
+        console.log(timeleft);
         // Reset score
         score = 0;
         
@@ -428,7 +436,6 @@ window.onload = function() {
         
         // Create the level
         createLevel();
-        timeleft = maxtime;
         
         // Find initial clusters and moves
         findMoves();
