@@ -90,13 +90,25 @@
 
 })(jQuery);
 
+document.getElementById("Pretest").hidden = true;
 document.getElementById("Post-test").hidden = true;
 document.getElementById("full_game").hidden = true;
+document.getElementById("next_btn2").hidden = true;
 
 document.getElementById("next_btn").onclick = function(){
-    document.getElementById("full_form").hidden = true;
-    document.getElementById("Pretest").hidden = true;
+    document.getElementById("Informed_Consent").hidden = true;
     document.getElementById("next_btn").hidden = true;
+
+    document.getElementById("Pretest").hidden = false;
+    document.getElementById("next_btn2").hidden = false;
+    console.log("NEXT");
+}
+
+document.getElementById("next_btn2").onclick = function(){
+    document.getElementById("Pretest").hidden = true;
+    document.getElementById("next_btn2").hidden = true;
+    document.getElementById("full_form").hidden = true;
+
     document.getElementById("full_game").hidden = false;
     console.log("NEXT");
 }
