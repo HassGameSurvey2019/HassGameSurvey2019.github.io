@@ -5,7 +5,7 @@ window.onload = function() {
     // Get the canvas and context
     var canvas = document.getElementById("viewport");
     var context = canvas.getContext("2d");
-    var canvasWidth = 480;
+    var canvasWidth = 400;
 
     // var game_data = document.getElementById("game_data");
     // game_data.setAttribute("value", "11");
@@ -18,12 +18,12 @@ window.onload = function() {
     
     // Level object
     var level = {
-        x: 40,         // X position
+        x: 20,         // X position
         y: 150,         // Y position
         columns: 8,     // Number of tile columns
         rows: 8,        // Number of tile rows
-        tilewidth: 50,  // Visual width of a tile
-        tileheight: 50, // Visual height of a tile
+        tilewidth: 45,  // Visual width of a tile
+        tileheight: 45, // Visual height of a tile
         tiles: [],      // The two-dimensional tile array
         selectedtile: { selected: false, column: 0, row: 0 }
     };
@@ -84,7 +84,7 @@ window.onload = function() {
 
     function play_menu(){
         drawFrame();
-        nextBtn = { x: 150, y: 450, width: 200, height: 50, text: "PLAY"};
+        nextBtn = { x: 100, y: 450, width: 200, height: 50, text: "PLAY"};
         buttons = [nextBtn];
         canvas.addEventListener("mousedown", playBtnPress);
         
@@ -162,7 +162,7 @@ window.onload = function() {
                 if(gameover == false && !repeated_play){
                     console.log(score.toString());
                     writeUserData(score);
-                    buttons = [ { x: 150, y: 450, width: 200, height: 50, text: "Leaderboard"}];
+                    buttons = [ { x: 100, y: 450, width: 200, height: 50, text: "Leaderboard"}];
                 }
                 gameover = true;
                 return;

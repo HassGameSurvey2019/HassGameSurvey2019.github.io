@@ -2,11 +2,11 @@
 [ CANVAS ]*/
 canvas {
 	position: absolute;
-	width: 480px;
+	width: 400px;
 	height: 640px;
 	left: 50%;
 	top: 50%;
-	margin-left: -240px; /* This is half the width */
+	margin-left: -200px; /* This is half the width */
 	margin-top: -320px; /* This is half the height */
 }
 
