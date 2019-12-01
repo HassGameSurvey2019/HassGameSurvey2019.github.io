@@ -101,7 +101,8 @@ window.onload = function() {
         context.drawImage(toDraw, play_img.x, play_img.y, play_img.width, play_img.height);
 
         context.fillStyle = grey;
-        drawCenterText("Main Menu", 0, 50, canvasWidth, "30px Poppins-Medium");
+        //drawCenterText("Main Menu", 0, 50, canvasWidth, "30px Poppins-Medium");
+        drawCenterText("Warm-Up Round", 0, 100, canvasWidth, "40px Poppins-Medium");
     }
 
     
@@ -836,7 +837,7 @@ window.onload = function() {
     function writeUserData(scoreNum) {
         console.log("WUD");
         var flip = Math.random() > 0.5;
-        var multiplier = flip ? 1.7 : 1.1;
+        var multiplier = flip ? 1.8 : 1.2;
         var multString = flip ? "High" : "Low";
         document.getElementById("num1score").innerHTML = (Math.round(scoreNum * multiplier / 10) * 10).toString();
         document.getElementById("num2score").innerHTML = scoreNum.toString();
