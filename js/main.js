@@ -86,11 +86,9 @@
     }
     */
 
-    $("html").css({
-        "touch-action": "pan-down"
-    });
-
 })(jQuery);
+
+window.onbeforeunload = function () {return false;}
 
 document.getElementById("Pretest").hidden = true;
 document.getElementById("Post-test").hidden = true;
