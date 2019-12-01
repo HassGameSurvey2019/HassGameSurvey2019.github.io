@@ -41,6 +41,9 @@ window.onload = function() {
     var square = new Image(); square.src = "img/square.png";
     var star = new Image(); star.src = "img/star.png";
     var tileimages = [circle, diamond, heart, hex, square, star];
+
+    var playBtnImg = new Image(); playBtnImg.src = "img/hex.png";
+    var play_img = {img: playBtnImg, x: 100, y: 200, width: 200, height: 200};
     
     // Clusters and moves that were found
     var clusters = [];  // { column, row, length, horizontal }
@@ -68,7 +71,6 @@ window.onload = function() {
     var buttons = [ { x: 150, y: 450, width: 200, height: 50, text: "New Game"}];
 
     //Menu States
-    var menuStates = {consent: 0, instructions: 1, play: 2, leaderboard: 3, survey: 4};
     var repeated_play = false;
 
     // Timer
@@ -90,19 +92,17 @@ window.onload = function() {
 
     function play_menu(){
         drawFrame();
-        nextBtn = { x: 100, y: 450, width: 200, height: 50, text: "PLAY"};
+        nextBtn = { x: 40, y: 200, width: 180, height: 180, text: "PLAY"};
         buttons = [nextBtn];
         canvas.addEventListener("mousedown", playBtnPress);
         
-        drawButtons();
+        //drawButtons();
+        var toDraw = document.getElementById("playbtn");
+        context.drawImage(toDraw, play_img.x, play_img.y, play_img.width, play_img.height);
 
+        context.fillStyle = grey;
         drawCenterText("Main Menu", 0, 50, canvasWidth, "30px Poppins-Medium");
     }
-
-    function survey_menu(){
-
-    }
-
 
     
     // Initialize the game
@@ -166,6 +166,11 @@ window.onload = function() {
             // Check for game over
             if (moves.length <= 0 || timeleft <= 0) {
                 if(gameover == false && !repeated_play){
+                    console.log(score.toString());
+                    writeUserData(score);
+                    buttons = [ { x: 100, y: 450, width: 200, height: 50, text: "Play Actual"}];
+                }
+                if(gameover == false && repeated_play){
                     console.log(score.toString());
                     writeUserData(score);
                     buttons = [ { x: 100, y: 450, width: 200, height: 50, text: "Leaderboard"}];
@@ -814,7 +819,14 @@ window.onload = function() {
                         newGame();
                     }
                     else{
-                        onLeaderboard();
+                        if(!repeated_play){
+                            repeated_play = true;
+                            buttons = []
+                            newGame();
+                        }
+                        else{
+                            onLeaderboard();
+                        }
                     }
                 } 
             }
@@ -823,7 +835,16 @@ window.onload = function() {
 
     function writeUserData(scoreNum) {
         console.log("WUD");
+        var flip = Math.random() > 0.5;
+        var multiplier = flip ? 1.7 : 1.1;
+        var multString = flip ? "High" : "Low";
+        document.getElementById("num1score").innerHTML = (Math.round(scoreNum * multiplier / 10) * 10).toString();
         document.getElementById("num2score").innerHTML = scoreNum.toString();
+        document.getElementById("num3score").innerHTML = (Math.round(scoreNum * 0.8 / 10) * 10).toString();
+        document.getElementById("num4score").innerHTML = (Math.round(scoreNum * 0.7 / 10) * 10).toString();
+        document.getElementById("num5score").innerHTML = (Math.round(scoreNum * 0.5 / 10) * 10).toString();
+
+        document.getElementById("game_data").setAttribute("value", scoreNum.toString() + " " + multString);
         /*
         var databaseRef = firebase.database().ref('entries/');
         var newEntry = databaseRef.push();
