@@ -17,26 +17,26 @@
         })    
     })
     */
-            
+
 
     /*==================================================================
     [ Chose Radio ]*/
-    
-    $("#radio1").on('change', function(){
+
+    $("#radio1").on('change', function () {
         if ($(this).is(":checked")) {
             $('.input3-select').slideUp(300);
         }
     });
 
-    $("#radio2").on('change', function(){
+    $("#radio2").on('change', function () {
         if ($(this).is(":checked")) {
             $('.input3-select').slideDown(300);
         }
     });
-    
-        
-  
-    
+
+
+
+
     /*==================================================================
     [ Validate ]*/
     var name = $('.validate-input input[name="name"]');
@@ -85,8 +85,10 @@
         $(thisAlert).removeClass('alert-validate');
     }
     */
-    
-    
+
+    $("html").css({
+        "touch-action": "pan-down"
+    });
 
 })(jQuery);
 
@@ -96,7 +98,7 @@ document.getElementById("Leaderboard").hidden = true;
 document.getElementById("full_game").hidden = true;
 document.getElementById("next_btn2").hidden = true;
 
-document.getElementById("next_btn").onclick = function(){
+document.getElementById("next_btn").onclick = function () {
     document.getElementById("Informed_Consent").hidden = true;
     document.getElementById("next_btn").hidden = true;
 
@@ -105,7 +107,7 @@ document.getElementById("next_btn").onclick = function(){
     console.log("NEXT");
 }
 
-document.getElementById("next_btn2").onclick = function(){
+document.getElementById("next_btn2").onclick = function () {
     document.getElementById("Pretest").hidden = true;
     document.getElementById("next_btn2").hidden = true;
     document.getElementById("full_form").hidden = true;
@@ -114,7 +116,7 @@ document.getElementById("next_btn2").onclick = function(){
     console.log("NEXT");
 }
 
-function onLeaderboard(){
+function onLeaderboard() {
     console.log("LB");
     document.getElementById("full_game").hidden = true;
     document.getElementById("Leaderboard").hidden = false;
@@ -122,7 +124,7 @@ function onLeaderboard(){
     //document.getElementById("Post-test").hidden = false;
 }
 
-document.getElementById("next_btn3").onclick = function(){
+document.getElementById("next_btn3").onclick = function () {
     document.getElementById("Leaderboard").hidden = true;
 
     document.getElementById("full_form").hidden = false;
