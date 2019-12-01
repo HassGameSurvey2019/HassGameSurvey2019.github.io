@@ -177,8 +177,22 @@ iframe {
   padding: 72px 55px 65px 55px;
 }
 
-.round_rect_bg1 {
+.wrap-contact4 {
   width: 500px;
+  background: rgb(244, 244, 244);
+  /*
+  background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: linear-gradient(45deg, #56ab2f, #a8e063);
+  */
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 72px 55px 65px 55px;
+}
+
+.round_rect_bg1 {
+  width: 100%;
   background: rgb(137, 137, 137);
   border-radius: 10px;
   overflow: hidden;
@@ -187,7 +201,7 @@ iframe {
 }
 
 .round_rect_bg2 {
-  width: 520px;
+  width: 100%;
   background: rgb(216, 216, 216);
   border-radius: 10px;
   overflow: hidden;
