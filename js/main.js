@@ -92,6 +92,7 @@
 
 document.getElementById("Pretest").hidden = true;
 document.getElementById("Post-test").hidden = true;
+document.getElementById("Leaderboard").hidden = true;
 document.getElementById("full_game").hidden = true;
 document.getElementById("next_btn2").hidden = true;
 
@@ -116,6 +117,15 @@ document.getElementById("next_btn2").onclick = function(){
 function onLeaderboard(){
     console.log("LB");
     document.getElementById("full_game").hidden = true;
+    document.getElementById("Leaderboard").hidden = false;
+    //document.getElementById("full_form").hidden = false;
+    //document.getElementById("Post-test").hidden = false;
+}
+
+document.getElementById("next_btn3").onclick = function(){
+    document.getElementById("Leaderboard").hidden = true;
+
     document.getElementById("full_form").hidden = false;
     document.getElementById("Post-test").hidden = false;
 }
+

@@ -5,6 +5,12 @@ window.onload = function() {
     // Get the canvas and context
     var canvas = document.getElementById("viewport");
     var context = canvas.getContext("2d");
+    var num1score = document.getElementById("num1score");
+    var num2score = document.getElementById("num2score");
+    var num3score = document.getElementById("num3score");
+    var num4score = document.getElementById("num4score");
+    var num5score = document.getElementById("num5score");
+
     var canvasWidth = 400;
 
     // var game_data = document.getElementById("game_data");
@@ -144,7 +150,7 @@ window.onload = function() {
     // Update the game state
     function update(tframe) {
 
-        console.log(tframe);
+        //console.log(tframe);
 
         if(gameover){
             return;
@@ -816,6 +822,8 @@ window.onload = function() {
     }
 
     function writeUserData(scoreNum) {
+        console.log("WUD");
+        document.getElementById("num2score").innerHTML = scoreNum.toString();
         /*
         var databaseRef = firebase.database().ref('entries/');
         var newEntry = databaseRef.push();
