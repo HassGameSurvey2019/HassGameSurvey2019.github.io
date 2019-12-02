@@ -153,13 +153,13 @@ window.onload = function() {
 
         //console.log(tframe);
 
-        if(gameover){
-            return;
-        }
-
         var dt = (tframe - lastframe) / 1000;
         lastframe = tframe;
         timeleft -= dt;
+
+        if(gameover){
+            return;
+        }
         
         if (gamestate == gamestates.ready) {
             // Game is ready for player input
@@ -434,6 +434,7 @@ window.onload = function() {
     
     // Start a new game
     function newGame() {
+        maxtime = repeated_play ? 60 : 30;
         timeleft = maxtime;
         console.log("NEW GAME");
         console.log(timeleft);
