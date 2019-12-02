@@ -103,6 +103,8 @@ window.onload = function() {
         context.fillStyle = grey;
         //drawCenterText("Main Menu", 0, 50, canvasWidth, "30px Poppins-Medium");
         drawCenterText("Warm-Up Round", 0, 100, canvasWidth, "40px Poppins-Medium");
+
+        drawCenterText("Swipe to Match at least 3 shapes", 0, 450, canvasWidth, "20px Poppins-Medium");
     }
 
     
